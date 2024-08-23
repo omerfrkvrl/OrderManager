@@ -3,12 +3,13 @@ package core;
 import javax.swing.*;
 
 public class Helper {
-    public static void setTheme(){
-        for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
-            if (info.getName().equals("Nimbus")){
+    public static void setTheme() {
+        for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+            if (info.getName().equals("Nimbus")) {
                 try {
                     UIManager.setLookAndFeel(info.getClassName());
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
+                         UnsupportedLookAndFeelException e) {
                     throw new RuntimeException(e);
 
                 }
@@ -16,7 +17,11 @@ public class Helper {
             }
         }
         UIManager.put("OptionPane.okButtonText", "Tamam");
+        UIManager.put("OptionPane.yesButtonText", "Evet");
+        UIManager.put("OptionPane.noButtonText", "Hayır");
+
     }
+
 // JTextField Dolumu boşmu kontrol ediliyor
     public static boolean isFieldEmpty(JTextField field){
         return field.getText().trim().isEmpty();
@@ -80,6 +85,18 @@ public class Helper {
             }
         }
         JOptionPane.showMessageDialog(null, msg, title, JOptionPane.INFORMATION_MESSAGE );
+
+    }
+
+    public static boolean confirm(String str){
+    String msg;
+
+    if (str.equals("sure")){
+        msg = "Bu işlemi gerçekleştirmek istediğinizden Emin misiniz!";
+    }else {
+        msg = str;
+    }
+    return JOptionPane.showConfirmDialog(null , msg, "Emin misin!", JOptionPane.YES_NO_OPTION) == 0 ;
 
     }
 

@@ -1,6 +1,7 @@
 package view;
 import business.CustomerController;
 import core.Helper;
+import dao.CustomerDao;
 import entity.Customer;
 import entity.User;
 import javax.swing.*;
@@ -89,7 +90,7 @@ public class DashboardUI extends JFrame {
         });
         this.popup_customer.add("Güncelle").addActionListener(e -> {
             int selectId;
-            selectId = (int) tbl_customer.getValueAt(tbl_customer.getSelectedRow(), 0 );
+            selectId = Integer.parseInt(  tbl_customer.getValueAt(tbl_customer.getSelectedRow(), 0 ).toString());
             CustomerUI customerUI = new CustomerUI(this.customerController.getById(selectId));
 
             customerUI.addWindowListener(new WindowAdapter() {
@@ -101,7 +102,16 @@ public class DashboardUI extends JFrame {
 
         });
         this.popup_customer.add("Sil").addActionListener(e -> {
-            System.out.println("Sile tıklandı");
+            int selectId = Integer.parseInt(  tbl_customer.getValueAt(tbl_customer.getSelectedRow(), 0 ).toString());
+            if (Helper.confirm("sure")){
+                if(this.customerController.delete(selectId)){
+                    Helper.showMsg("done");
+                    loadCustomerTable(null);
+                }else {
+                    Helper.showMsg("error");
+                }
+            }
+
         });
 
         this.tbl_customer.setComponentPopupMenu(this.popup_customer);

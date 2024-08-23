@@ -51,9 +51,9 @@ public class CustomerDao {
             pr.setString(5, customer.getAddress());
             return pr.executeUpdate() != -1;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return true;
+
     }
     // CustomerDao clasında güncelle tuşuna bastıktan sonra yapılan değişikliklerin güncellenmesi için yazılan methot
     public boolean update(Customer customer){
@@ -75,11 +75,23 @@ public class CustomerDao {
             return pr.executeUpdate() != -1;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return true;
+
 
     }
+    public boolean delete(int id){
+        String query = "DELETE FROM customer WHERE id = ?";
+        try {
+            PreparedStatement pr = this.connection.prepareStatement(query);
+            pr.setInt(1,id);
+            return pr.executeUpdate() != -1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     public Customer getById(int id){
         Customer customer = null;
         String query = "SELECT * FROM customer WHERE id = ?";
@@ -96,6 +108,7 @@ public class CustomerDao {
         return customer;
 
     }
+
 
     public Customer match(ResultSet rs) throws SQLException {
         Customer customer = new Customer();

@@ -11,7 +11,6 @@ public class App {
 
         UserController userController = new UserController();
         User user = userController.findByLogin("omerfrkvrl@patika.dev", "123123");
-
         DashboardUI dashboardUI = new DashboardUI(user);
 
 

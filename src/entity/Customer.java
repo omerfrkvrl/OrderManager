@@ -13,6 +13,12 @@ public class Customer {
         COMPANY
     }
 
+    public TYPE fromString(String type){
+        if (type.equalsIgnoreCase("Person")){
+            return TYPE.PERSON;
+        }else return TYPE.COMPANY;
+    }
+
     public Customer() {
 
     }
@@ -65,6 +71,8 @@ public class Customer {
     public void setType(TYPE type) {
         this.type = type;
     }
+
+
 
     @Override
     public String toString() {

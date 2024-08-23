@@ -67,7 +67,7 @@ public class CustomerUI extends JFrame {
                 this.customer.setPhone(this.fld_customer_phone.getText());
                 this.customer.setMail(this.fld_customer_mail.getText());
                 this.customer.setAddress(this.tarea_customer_address.getText());
-                this.customer.setType((Customer.TYPE) this.cmb_customer_type.getSelectedItem());
+                this.customer.setType(this.customer.fromString(this.cmb_customer_type.getSelectedItem().toString()));
 
                 if(this.customer.getId() == 0){
                     result = this.customerController.save(this.customer);

@@ -89,7 +89,7 @@ public class DashboardUI extends JFrame {
         });
         this.popup_customer.add("Güncelle").addActionListener(e -> {
             int selectId;
-            selectId = Integer.parseInt(tbl_customer.getValueAt(tbl_customer.getSelectedRow(), 0 ).toString());
+            selectId = (int) tbl_customer.getValueAt(tbl_customer.getSelectedRow(), 0 );
             CustomerUI customerUI = new CustomerUI(this.customerController.getById(selectId));
 
             customerUI.addWindowListener(new WindowAdapter() {

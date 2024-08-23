@@ -57,12 +57,12 @@ public class CustomerDao {
     }
     // CustomerDao clasında güncelle tuşuna bastıktan sonra yapılan değişikliklerin güncellenmesi için yazılan methot
     public boolean update(Customer customer){
-        String query = "UPDATE customer SET"+
+        String query = "UPDATE customer SET "+
                 "name = ?,"+
                 "type = ?,"+
                 "phone = ?,"+
                 "mail = ?,"+
-                "address = ?,"+
+                "address = ? "+
                 "WHERE id = ?";
         try {
             PreparedStatement pr = this.connection.prepareStatement(query);

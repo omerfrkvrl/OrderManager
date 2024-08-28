@@ -24,6 +24,7 @@ public class ProductUI extends JFrame {
     private Product product;
     private ProductController productController;
 
+
     public ProductUI(Product product){
         this.product = product;
         this.productController = new ProductController();

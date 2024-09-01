@@ -20,7 +20,10 @@ public class DashboardUI extends JFrame {
     private JPanel pnl_customer;
     private JScrollPane scrl_customer;
     private JTable tbl_customer;
+    private JPanel pnl_customer_filter;
+    private JLabel lbl_f_customer_name;
     private JTextField fld_f_customer_name;
+    private JLabel lbl_f_customer_type;
     private JComboBox<Customer.TYPE> cmb_f_customer_type;
     private JButton btn_customer_filter;
     private JButton btn_customer_filter_reset;
@@ -38,9 +41,6 @@ public class DashboardUI extends JFrame {
     private JLabel lbl_f_product_name;
     private JLabel lbl_f_product_code;
     private JLabel lbl_f_product_stock;
-    private JLabel lbl_f_customer_name;
-    private JLabel lbl_f_customer_type;
-    private JPanel pnl_customer_filter;
     private User user ;
 
     private CustomerController customerController;
@@ -74,6 +74,10 @@ public class DashboardUI extends JFrame {
         this.setVisible(true);
 
         this.lbl_welcome.setText("Hoşgeldin  : "+ this.user.getName());
+        this.btn_logout.addActionListener(e -> {
+            dispose();
+            LoginUI loginUI = new LoginUI();
+        });
 
         //CUSTOMER TAB
         loadCustomerTable(null); // Database deki müşteri bilgilerinin Tabloya getirildiği metot
@@ -86,7 +90,7 @@ public class DashboardUI extends JFrame {
         model.insertElementAt(null, 0);
         this.cmb_f_customer_type.setModel(model);
 // İlk başta boş seçenek seçili olarak ayarlanır
-        this.cmb_f_customer_type.setSelectedItem(null);
+        this. cmb_f_customer_type.setSelectedItem(null);
 
 
         //PRODUCT TAB
@@ -96,6 +100,7 @@ public class DashboardUI extends JFrame {
         this.cmb_f_product_stock.addItem(new Item(1,"Stokta var"));
         this.cmb_f_product_stock.addItem(new Item(2, "Stokta yok"));
         this.cmb_f_product_stock.setSelectedItem(null); // ****
+
     }
 
 
@@ -111,11 +116,6 @@ public class DashboardUI extends JFrame {
             });
         });
 
-        this.btn_logout.addActionListener(e -> {
-            dispose();
-            LoginUI loginUI = new LoginUI();
-        });
-
         this.btn_customer_filter.addActionListener(e -> {
             ArrayList<Customer> filteredCustomers = this.customerController.filter(
                     this.fld_f_customer_name.getText(),
@@ -128,8 +128,6 @@ public class DashboardUI extends JFrame {
             loadCustomerTable(null);
             this.cmb_f_customer_type.setSelectedItem(null);
             this.fld_f_customer_name.setText(null);
-
-
         });
 
     }
@@ -217,10 +215,23 @@ public class DashboardUI extends JFrame {
             });
 
         });
-
-        this.btn_customer_filter.addActionListener(e -> {
+        this.btn_product_filter.addActionListener(e -> {
+            ArrayList<Product> filteresProducts = this.productController.filter(
+                    this.fld_f_product_name.getText(),
+                    this.fld_f_product_code.getText(),
+                    (Item) this.cmb_f_product_stock.getSelectedItem()
+            );
+            loadProductTable(filteresProducts);
 
         });
+        this.btn_product_filter_reset.addActionListener(e -> {
+            loadProductTable(null);
+            this.fld_f_product_name.setText(null);
+            this.fld_f_product_code.setText(null);
+            this.cmb_f_product_stock.setSelectedItem(null);
+
+        });
+
     }
     private void loadProductPopupMenu(){
         this.tbl_product.addMouseListener(new MouseAdapter() {
@@ -300,3 +311,4 @@ public class DashboardUI extends JFrame {
         // TODO: place custom component creation code here
     }
 }
+

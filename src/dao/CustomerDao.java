@@ -109,7 +109,7 @@ public class CustomerDao {
 
     }
     
-    // CustomerControllerdan gelen queryleri döndüren methot
+    // CustomerControllerdan gelen custom queryleri döndüren methot
     public ArrayList<Customer> query(String query){
         ArrayList<Customer> customers = new ArrayList<>();
         try {

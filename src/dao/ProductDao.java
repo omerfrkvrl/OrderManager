@@ -56,7 +56,7 @@ public class ProductDao {
 
     }
 
-    // CustomerDao clasında güncelle tuşuna bastıktan sonra yapılan değişikliklerin güncellenmesi için yazılan methot
+    // ProductDao clasında güncelle tuşuna bastıktan sonra yapılan değişikliklerin güncellenmesi için yazılan methot
     public boolean update(Product product){
         String query = "UPDATE product SET "+
                 "name = ?,"+
@@ -107,6 +107,20 @@ public class ProductDao {
         }
         return product;
 
+    }
+
+    // ProductControllerdan gelen custom queryleri döndüren methot
+    public ArrayList<Product> query(String query){
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            ResultSet rs = this.connection.createStatement().executeQuery(query);
+            while (rs.next()){
+                products.add(this.match(rs));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return products ;
     }
 
     //findAll methodu database'e bir sorgu gönderir ve dönen değeri bir Arrayliste eşleştirir
